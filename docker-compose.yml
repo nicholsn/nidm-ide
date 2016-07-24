@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./yasgui:/usr/share/nginx/html:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80
+    links:
+      - blazegraph:blazegraph
+  blazegraph:
+    image: nicholsn/docker-blazegraph
+    volumes:
+      - ./blazegraph/blazegraph.jnl:/home/blazegraph/blazegraph.jnl
+    ports:
+      - 9999:9999
